@@ -824,8 +824,6 @@ function _FeaturedSection({ lang }: { lang: Lang }) {
 
 function ContactSection({ lang }: { lang: Lang }) {
   const t = dict[lang].contact;
-  const [sent, setSent] = useState(false);
-  const formRef = useRef<HTMLFormElement>(null);
 
   type Social = {
     Icon: IconType;
@@ -848,80 +846,35 @@ function ContactSection({ lang }: { lang: Lang }) {
   ];
 
   return (
-    <section id="contact" className="scroll-mt-32 py-16">
-      <Kicker>{t.kicker}</Kicker>
-      <h2 className="mt-3 whitespace-pre-line text-3xl text-foreground sm:text-5xl">{t.title}</h2>
-      <p className="mt-4 max-w-2xl font-mono-thin text-sm text-foreground/75 sm:text-base">{t.body}</p>
+    <section id="contact" className="scroll-mt-32 py-16 text-center">
+      <div className="mx-auto max-w-2xl">
+        <Kicker>{t.kicker}</Kicker>
+        <h2 className="mt-3 whitespace-pre-line text-3xl text-foreground sm:text-5xl">{t.title}</h2>
+        <p className="mt-4 font-mono-thin text-sm text-foreground/75 sm:text-base">{t.body}</p>
 
-      <div className="mt-8 grid gap-6 md:grid-cols-[1.1fr_1fr]">
-        <form
-          ref={formRef}
-          onSubmit={(e) => {
-            e.preventDefault();
-            setSent(true);
-            formRef.current?.reset();
-            setTimeout(() => setSent(false), 4000);
-          }}
-          className="glass shadow-soft flex flex-col gap-3 rounded-2xl p-5"
-        >
-          <input required name="name" placeholder={t.placeholderName}
-            className="font-typewriter rounded-md border border-foreground/10 bg-background/50 px-3 py-2.5 text-sm placeholder:text-foreground/40 focus:border-[var(--folder-1)] focus:outline-none" />
-          <input required type="email" name="email" placeholder={t.placeholderEmail}
-            className="font-typewriter rounded-md border border-foreground/10 bg-background/50 px-3 py-2.5 text-sm placeholder:text-foreground/40 focus:border-[var(--folder-1)] focus:outline-none" />
-          <textarea required name="message" rows={5} placeholder={t.placeholderMsg}
-            className="font-typewriter resize-none rounded-md border border-foreground/10 bg-background/50 px-3 py-2.5 text-sm placeholder:text-foreground/40 focus:border-[var(--folder-1)] focus:outline-none" />
-          <button type="submit"
-            className="font-typewriter shadow-pixel mt-1 inline-flex items-center justify-center gap-2 rounded-md bg-[var(--folder-1)] px-4 py-2.5 text-sm text-primary-foreground transition hover:translate-y-[-1px]">
-            <Send className="h-4 w-4" strokeWidth={1.5} /> {t.send}
-          </button>
-          {sent && (
-            <p className="font-typewriter text-xs text-[var(--folder-1)]">{t.sent}</p>
-          )}
-        </form>
+        {/* Centered Icons List */}
+        <div className="mt-10 flex flex-wrap justify-center gap-3">
+          {socials.map(({ Icon, label, href }) => (
+            <a
+              key={label}
+              href={href}
+              target="_blank"
+              rel="noreferrer"
+              title={label}
+              className="group relative flex h-12 w-12 items-center justify-center pixel-corners border border-foreground/15 bg-background/40 shadow-pixel transition duration-300 hover:scale-110 hover:-translate-y-1 hover:border-[var(--folder-1)] hover:bg-[var(--folder-1)]/10"
+            >
+              {/* scanline retro effect inside each shortcut on hover */}
+              <div className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-300 pixel-corners overflow-hidden">
+                <div className="scanlines absolute inset-0 opacity-20 mix-blend-overlay" />
+              </div>
+              <Icon className="h-5 w-5 text-foreground/80 transition duration-300 group-hover:text-[var(--folder-1)]" />
 
-        <div className="glass shadow-soft flex flex-col justify-between rounded-2xl p-6 relative overflow-hidden">
-          {/* Top terminal bar style */}
-          <div className="flex items-center justify-between border-b border-foreground/15 pb-3">
-            <div className="flex items-center gap-2">
-              <span className="h-2 w-2 rounded-full bg-[var(--folder-1)]/75" />
-              <span className="h-2 w-2 rounded-full bg-[var(--folder-2)]/75" />
-              <span className="h-2 w-2 rounded-full bg-[var(--folder-3)]/75" />
-              <span className="font-typewriter ml-2 text-[11px] uppercase tracking-wider text-muted-foreground">
-                links.exe
+              {/* Tooltip on hover */}
+              <span className="font-typewriter pointer-events-none absolute -bottom-8 scale-0 rounded bg-foreground px-2 py-1 text-[9px] uppercase tracking-wider text-background transition duration-200 group-hover:scale-100 z-10 whitespace-nowrap shadow-pixel">
+                {label}
               </span>
-            </div>
-            <span className="font-mono-thin text-[10px] text-foreground/45">v1.0.0</span>
-          </div>
-
-          {/* Icons Grid */}
-          <div className="my-auto grid grid-cols-3 gap-x-4 gap-y-6 justify-items-center items-center py-4">
-            {socials.map(({ Icon, label, href }) => (
-              <a
-                key={label}
-                href={href}
-                target="_blank"
-                rel="noreferrer"
-                title={label}
-                className="group relative flex h-14 w-14 items-center justify-center pixel-corners border border-foreground/15 bg-background/40 shadow-pixel transition duration-300 hover:scale-110 hover:-translate-y-1 hover:border-[var(--folder-1)] hover:bg-[var(--folder-1)]/10"
-              >
-                {/* scanline retro effect inside each shortcut on hover */}
-                <div className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-300 pixel-corners overflow-hidden">
-                  <div className="scanlines absolute inset-0 opacity-20 mix-blend-overlay" />
-                </div>
-                <Icon className="h-6 w-6 text-foreground/80 transition duration-300 group-hover:text-[var(--folder-1)]" />
-
-                {/* Tooltip on hover */}
-                <span className="font-typewriter pointer-events-none absolute -bottom-8 scale-0 rounded bg-foreground px-2 py-1 text-[9px] uppercase tracking-wider text-background transition duration-200 group-hover:scale-100 z-10 whitespace-nowrap shadow-pixel">
-                  {label}
-                </span>
-              </a>
-            ))}
-          </div>
-
-          <div className="border-t border-foreground/10 pt-4 flex justify-between items-center text-[10px] font-mono-thin text-foreground/50">
-            <span>[Status: Ready]</span>
-            <span>Jhenny Solis</span>
-          </div>
+            </a>
+          ))}
         </div>
       </div>
     </section>
