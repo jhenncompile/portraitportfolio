@@ -1,12 +1,5 @@
 services:
-  - type: web
+  - type: static
     name: portraitportfolio
-    env: node
-    plan: free
-    buildCommand: NITRO_PRESET=node-server npm run build
-    startCommand: node .output/server/index.mjs
-    envVars:
-      - key: PORT
-        value: 10000
-      - key: NITRO_PRESET
-        value: node-server
+    buildCommand: npm run build
+    publishPath: dist
