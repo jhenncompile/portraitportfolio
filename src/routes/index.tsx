@@ -724,7 +724,7 @@ function _SkillsSection({ lang }: { lang: Lang }) {
             <Icon className="h-6 w-6 text-foreground/80 transition duration-300 group-hover:text-[var(--folder-1)]" />
 
             {/* Tooltip on hover */}
-            <span className="font-typewriter pointer-events-none absolute -bottom-8 scale-0 rounded bg-foreground px-2 py-1 text-[9px] uppercase tracking-wider text-background transition duration-200 group-hover:scale-100 z-10 whitespace-nowrap shadow-pixel">
+            <span className="font-typewriter pointer-events-none absolute -bottom-8 opacity-0 translate-y-1 rounded bg-foreground px-2 py-1 text-[9px] uppercase tracking-wider text-background transition-all duration-200 group-hover:opacity-100 group-hover:translate-y-0 z-50 whitespace-nowrap shadow-pixel">
               {name}
             </span>
           </div>
@@ -870,7 +870,7 @@ function ContactSection({ lang }: { lang: Lang }) {
               <Icon className="h-5 w-5 text-foreground/80 transition duration-300 group-hover:text-[var(--folder-1)]" />
 
               {/* Tooltip on hover */}
-              <span className="font-typewriter pointer-events-none absolute -bottom-8 scale-0 rounded bg-foreground px-2 py-1 text-[9px] uppercase tracking-wider text-background transition duration-200 group-hover:scale-100 z-10 whitespace-nowrap shadow-pixel">
+              <span className="font-typewriter pointer-events-none absolute -bottom-8 opacity-0 translate-y-1 rounded bg-foreground px-2 py-1 text-[9px] uppercase tracking-wider text-background transition-all duration-200 group-hover:opacity-100 group-hover:translate-y-0 z-50 whitespace-nowrap shadow-pixel">
                 {label}
               </span>
             </a>
